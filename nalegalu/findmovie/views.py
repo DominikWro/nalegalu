@@ -5,9 +5,18 @@ from BeautifulSoup import BeautifulSoup, SoupStrainer
 from findmovie.models import MovieEntry
 http = httplib2.Http()
 
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
 # Create your views here.
 from django.http import HttpResponse
+
+
+def home(request):
+    my_data_dictionary = {}
+    return render_to_response('index.html',
+                              my_data_dictionary,
+                              context_instance=RequestContext(request))
 
 
 def populate(request):
