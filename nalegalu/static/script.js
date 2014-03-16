@@ -12,6 +12,8 @@ controller('searchController', function($scope, $http) {
 
     ];
 
+$scope.emptyS = "";
+
     $scope.clickEventFunction = function (){
         var query = {query:$scope.query};
         $http.post('http://127.0.0.1:8000/search', query).success(

@@ -198,7 +198,7 @@
 
 
 
-{%verbatim%}
+
 <body ng-app="nalegaluApp" ng-controller="searchController">
 
     <div id="container">
@@ -227,6 +227,7 @@
       </div>
 
 
+{%verbatim%}
 <div class="wyniki"   ng-repeat="result in searchList">
 <table class="table">
         <thead>
@@ -239,20 +240,31 @@
 
             <td>
                 <div class="obrazek">
-                    <a href="http://placekitten.com/g/100/150" target="_blank"><img src="http://placekitten.com/g/100/150" border="0"></a>
+                    <a href="http://placekitten.com/g/65/104" target="_blank"><img src="http://placekitten.com/g/65/104" border="0"></a>
                 </div>
                 <div class="opis">
                     W okupowanej przez nazistów Francji oddział złożony z Amerykanów żydowskiego pochodzenia planuje zamach na Hitlera.
                 </div>
 {%endverbatim%}
-                <div class="tvp">
-                    <a href="www.tvp.pl"><img class="ikonki" src="{% static "tvplogo.png" %}"></a>
+
+                <div class="tvp" ng-hide="result.tvp == emptyS">
+{%verbatim%}
+                    <a href="{{ result.tvp }}">
+{%endverbatim%}
+                    <img class="ikonki" src="{% static "tvplogo.png" %}"></a>
                 </div>
-                <div class="iplex">
-                    <a href="www.iplex.pl"><img class="ikonki" src="{% static "iplexlogo.png" %}"></a>
+                <div class="iplex"  ng-hide='result.iplex == emptyS'>
+  {%verbatim%}
+                    <a href="{{ result.iplex }}">
+{%endverbatim%}
+                    <img class="ikonki" src="{% static "iplexlogo.png" %}"></a>
                 </div>
-                <div class="ipla">
-                    <a href="www.ipla.pl"><img class="ikonki" src="{% static "iplalogo.png" %}"></a>
+                <div class="ipla" ng-hide='result.ipla == emptyS' >
+
+{%verbatim%}
+                    <a href="{{ result.ipla }}">
+{%endverbatim%}
+                    <img class="ikonki" src="{% static "iplalogo.png" %}"></a>
                 </div>
 {%verbatim%}
             </td>
