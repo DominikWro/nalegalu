@@ -1,12 +1,13 @@
-
+{% load staticfiles %}
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="icon" type="image/png" href="logomini.png"/>
-    <script language="javascript" src="js/jquery.js"></script>
-    <script language="javascript" src="js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+
+    <link rel="icon" type="image/png" href="{% static "logomini.png" %}"/>
+    <script language="javascript" src="{% static "js/jquery.js" %}"></script>
+    <script language="javascript" src="{% static "js/bootstrap.min.js" %}" ></script>
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}"/>
 
 
       <meta charset="UTF-8">
@@ -16,7 +17,7 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
 
   <style type="text/css">
     *{
@@ -36,6 +37,7 @@
         width: 100%;
         margin: 0 auto;
         background-color: white;
+        clear: both;
     }
     #logo{
         margin-top: -10px;
@@ -49,15 +51,16 @@
         min-height: 100%;
         width: 100%;
         margin: 0 auto;
+        margin-bottom: -50px;
     }
     #film{
         height: 24px;
         width: 100%;
-        background-image: url('bgfilm.png');
+        background-image: url('{% static "bgfilm.png" %}');
         background-repeat: repeat-x;
     }
     #search{
-    	background-color: #ff4700;
+        background-color: #ff4700;
         border-radius: 35px;
         width: 50%;
         height: 130px;
@@ -97,7 +100,7 @@
         margin-top: 10px;
     }
     .bs-example2{
-	    margin: 20px;
+        margin: 20px;
         width: 40%;
         float: right;
     }
@@ -127,9 +130,9 @@
     }
     #main:after{
         content: "";
-		height: 0px;
-		display: block;
-	}
+        height: 0px;
+        display: block;
+    }
     .searchbox{
         width: 400px;
         height: 30px;
@@ -169,27 +172,43 @@
         float: right;
         margin: auto;
         margin-top: -15px;
-        margin-right: 50px;
+        margin-right: 30px;
     }
     .iplex{
         float: right;
         margin: auto;
         margin-top: -5px;
-        margin-right: 50px;
+        margin-right: 30px;
     }
     .tvp{
         float: right;
         margin: auto;
         margin-top: -20px;
-        margin-right: 0px;
+        margin-right: 30px;
     }
     .polecane1{
-
+        margin-left: -3%;
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        transform:scale(1.3);
+        margin-top: -12px;
     }
     .ikonki{
         -moz-transform:scale(0.5);
         -webkit-transform:scale(0.5);
         transform:scale(0.5);
+    }
+    #polecane_napis{
+        display: inline-block;
+        float: left;
+        margin-left: 26.5%;
+        margin-top: 30px;
+    }
+    #najcz_napis{
+        display: inline-block;
+        float: right;
+        margin-right: 23%;
+        margin-top: 30px;
     }
 </style>
 
@@ -197,14 +216,14 @@
 
 
 
-<body ng-app="nalegaluApp" ng-controller="searchController" >
+<body ng-app="nalegaluApp" ng-controller="searchController">
 
     <div id="container">
 
     <header>
 
-    <div id="logo">
-        <center><img src="logo2.png" alt="Tu podaj tekst alternatywny" /></center>
+ <div id="logo">
+        <center><img src="{% static "logo2.png"%}" alt="Tu podaj tekst alternatywny" /></center>
     </div>
     <div id="film">
 
@@ -214,7 +233,7 @@
 
     <div id="main">
       <div class="center"  id="search">
-           <form class="pole" role="search" ng-submit="clickEventFunction()">
+                      <form class="pole" role="search" ng-submit="clickEventFunction()">
 
                 <input type="text" class="searchbox" placeholder=" Wpisz tytuł filmu..." ng-model="query">
 
@@ -224,8 +243,10 @@
            </form>
       </div>
 
+
+
 {%verbatim%}
-<div class="wyniki">
+<div class="wyniki" ng-hide="searchList.lenght == 0"  ng-repeat="result in searchList">
 <table class="table">
         <thead>
           <tr>
@@ -235,61 +256,83 @@
           </tr>
         </thead>
 
-            <td ng-repeat="result in searchList">
+            <td>
                 <div class="obrazek">
-                    <a href="BW.png" target="_blank"><img src="BWm.png" border="0"></a>
+                    <a href="http://placekitten.com/g/65/104" target="_blank"><img src="http://placekitten.com/g/65/104" border="0"></a>
                 </div>
                 <div class="opis">
                     W okupowanej przez nazistów Francji oddział złożony z Amerykanów żydowskiego pochodzenia planuje zamach na Hitlera.
                 </div>
+{%endverbatim%}
+<div class="tvp" ng-hide='result.tvp == emptyS'>
 
-                <div class="tvp">
-                    <a href="www.tvp.pl"><img class="ikonki" src="tvplogo.png"></a>
+{%verbatim%}
+                   <a href="{{ result.tvp }}">
+{%endverbatim%}
+                    <img class="ikonki" src="{% static "tvplogo.png" %}"></a>
                 </div>
-                <div class="iplex">
-                    <a href="www.iplex.pl"><img class="ikonki" src="iplexlogo.png"></a>
+                <div class="iplex"  ng-hide='result.iplex == emptyS'>
+  {%verbatim%}
+                    <a href="{{ result.iplex }}">
+{%endverbatim%}
+                    <img class="ikonki" src="{% static "iplexlogo.png" %}"></a>
                 </div>
-                <div class="ipla">
-                    <a href="www.ipla.pl"><img class="ikonki" src="iplalogo.png"></a>
-                </div>
+                <div class="ipla" ng-hide='result.ipla == emptyS' >
 
+{%verbatim%}
+                    <a href="{{ result.ipla }}">
+{%endverbatim%}
+                    <img class="ikonki" src="{% static "iplalogo.png" %}"></a>
+                </div>
+{%verbatim%}
+      {%endverbatim%}
             </td>
 </table>
 
 </div>
 
-{%endverbatim%}
+
+    <div id="polecane_napis">
+        <b>POLECANE</b>
+    </div>
 
 
+    <div id="najcz_napis">
+        <b>NAJCZĘŚCIEJ OGLĄDANE</b>
+    </div>
 
 
       <div id="blok">
 
     <div class="bs-example bs-left">
     <div id="myCarousel" class="carousel slide" data-interval="3000" data-ride="carousel">
-          <ol class="carousel-indicators">
-        </ol>
+
            <div class="carousel-inner">
             <div class="active item">
                 <h2>
                     <div class="polecane1">
-                        <a href="www.ipla.pl"><img class="ikonki" src="BWm.png"></a>
+                        <a href="www.ipla.pl"><img class="ikonki" src="{% static "BWm.png" %}"></a>
+                        <a href="www.ipla.pl"><img class="ikonki" src="{% static "BWm.png" %}"></a>
+                        <a href="www.ipla.pl"><img class="ikonki" src="{% static "BWm.png" %}"></a>
                     </div>
                 </h2>
-                    <div class="carousel-caption">
 
-
-
-                </div>
             </div>
             <div class="item">
-                <h2>Polecane</h2>
+                <h2>
+                    <div class="polecane1">
+                        <a href="www.ipla.pl"><img class="ikonki" src="{% static "BWm.png" %}"></a>
+                        <a href="www.ipla.pl"><img class="ikonki" src="{% static "BWm.png" %}"></a>
+                    </div></h2>
                 <div class="carousel-caption">
 
                 </div>
             </div>
             <div class="item">
-                <h2>Polecane</h2>
+                <h2>
+                    <div class="polecane1">
+                        <a href="www.ipla.pl"><img class="ikonki" src="{% static "BWm.png" %}"></a>
+                    </div></h2>
                 <div class="carousel-caption">
 
                 </div>
@@ -317,19 +360,28 @@
         </ol>
            <div class="carousel-inner">
             <div class="active item">
-                <h2>Najczęściej oglądane</h2>
+                <h2><div class="polecane1">
+                        <a href="www.ipla.pl"><img class="ikonki" src="{% static "BWm.png" %}"></a>
+                    </div></h2>
                 <div class="carousel-caption">
 
                 </div>
             </div>
             <div class="item">
-                <h2>Najczęściej oglądane</h2>
+                <h2><div class="polecane1">
+                        <a href="www.ipla.pl"><img class="ikonki" src="{% static "BWm.png" %}"></a>
+                        <a href="www.ipla.pl"><img class="ikonki" src="{% static "BWm.png" %}"></a>
+                    </div></h2>
                 <div class="carousel-caption">
 
                 </div>
             </div>
             <div class="item">
-                <h2>Najczęściej oglądane</h2>
+                <h2><div class="polecane1">
+                        <a href="www.ipla.pl"><img class="ikonki" src="{% static "BWm.png" %}"></a>
+                        <a href="www.ipla.pl"><img class="ikonki" src="{% static "BWm.png" %}"></a>
+                        <a href="www.ipla.pl"><img class="ikonki" src="{% static "BWm.png" %}"></a>
+                    </div></h2>
                 <div class="carousel-caption">
 
                 </div>
@@ -343,7 +395,7 @@
         </a>
     </div>
 </div>
-
+</div>
 
         </div>
 
@@ -353,7 +405,7 @@
 
 
     </div>
-    </div>
+    <!-- </div> -->
 <footer>
 <div id="film">
 
@@ -364,12 +416,8 @@
 </footer>
 
 
-</div>
-
-
-
-<script src="{% static "script.js" %}" ></script>
-
+<!-- </div> -->
+     <script src="{% static "script.js" %}" ></script>
 
 </body>
 </html>
