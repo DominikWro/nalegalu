@@ -11,12 +11,46 @@ from django.template import RequestContext
 # Create your views here.
 from django.http import HttpResponse
 
+#serczu
+from django.db.models import Q
+import json
+
+
+from django.views.decorators.csrf import csrf_exempt
+
 
 def home(request):
     my_data_dictionary = {}
     return render_to_response('index.html',
                               my_data_dictionary,
                               context_instance=RequestContext(request))
+
+
+@csrf_exempt
+def test(request):
+    my_data_dictionary = {}
+    return render_to_response('search.html',
+                              my_data_dictionary,
+                              context_instance=RequestContext(request))
+
+
+
+@csrf_exempt
+def search(request):
+    response_data = {}
+    # print "potanto"
+    if request.method == 'POST':
+        response_data['result'] = 'success'
+        jsonQuery = json.loads(request.body)
+        your_search_query = jsonQuery['query']
+        results = MovieEntry.objects.filter(Q(full_title__icontains=your_search_query)).order_by('full_title')
+
+        response_data['items'] = [{"full_title": r.full_title,
+                                   "ipla": r.ipla,
+                                   "iplex": r.iplex,
+                                   "tvp": r.tvp} for r in results]
+
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
 def populate(request):

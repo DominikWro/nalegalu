@@ -1,6 +1,6 @@
 {% load staticfiles %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app>
   <head>
     <script language="javascript" src="{% static "js/jquery.js" %}"></script>
     <script language="javascript" src="{% static "js/bootstrap.min.js" %}"></script>
@@ -14,6 +14,8 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
 
 
   <style type="text/css">
@@ -119,7 +121,7 @@
 
 
 
-<body>
+<body ng-app>
     <div id="header">
     <div id="logo">
             <center><img src="{% static "logo2.png" %}" alt="Tu podaj tekst alternatywny" /></center>
@@ -135,7 +137,7 @@
         <div class="col-md-2 col-md-offset-5">
             <input type="text" class="form-control" placeholder="Wpisz nazwe filmu...">
         </div>
-            <button class="btn btn-large btn-primary" type="button">Szukaj <span class="glyphicon glyphicon-search"></span></button>
+            <button class="btn btn-large btn-primary" id="searchButton" type="button">Szukaj <span class="glyphicon glyphicon-search"></span></button>
      </div>
 </div>
 
@@ -203,6 +205,15 @@
     </div>
 </div>
 
+
+
+<!-- anglr testownia -->
+<input type="text" ng-model="yourName" placeholder="Enter a name here">
+      <h1>Hello, {{ yourName }}!</h1>
+
+<!-- testownia  -->
+
+
 <div class="wrapper">
 <div class="push"></div>
 </div>  <div id="film">
@@ -211,11 +222,30 @@
 <div class="footer">
 <h1>Potato</h1>
 </div>
-</body>
+
+<script>
+// var myEvent = {id: calEvent.id, start: calEvent.start, end: calEvent.end,
+//                allDay: calEvent.allDay };
+
+$( "#searchButton" ).click(function() {
+  // alert( "Handler for .click() called." );
+  console.log("potato");
+$.ajax({
+    url: '/search',
+    type: 'POST',
+    contentType: 'application/json; charset=utf-8',
+    data: $.toJSON({query:"Noc"}),
+    dataType: 'text',
+    success: function(result) {
+        alert(result.Result);
+    }
+});
 
 
+// anglr stuff
 
 
+</script>
 
 </body>
 </html>

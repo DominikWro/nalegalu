@@ -1,0 +1,375 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="icon" type="image/png" href="logomini.png"/>
+    <script language="javascript" src="js/jquery.js"></script>
+    <script language="javascript" src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+
+
+      <meta charset="UTF-8">
+<title>naLegalu</title>
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+
+
+  <style type="text/css">
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    header{
+        background-color: white;
+        width: 100%;
+    }
+    #footercontent{
+        text-align: center;
+        padding: 6px 0;
+    }
+    footer{
+        height: 60px;
+        width: 100%;
+        margin: 0 auto;
+        background-color: white;
+    }
+    #logo{
+        margin-top: -10px;
+    }
+
+    html, body{
+        background-color: #f0f0f0;
+        height: 100%;
+    }
+    #container{
+        min-height: 100%;
+        width: 100%;
+        margin: 0 auto;
+    }
+    #film{
+        height: 24px;
+        width: 100%;
+        background-image: url('bgfilm.png');
+        background-repeat: repeat-x;
+    }
+    #search{
+    	background-color: #ff4700;
+        border-radius: 35px;
+        width: 50%;
+        height: 130px;
+        margin: auto;
+        margin-top: 35px;
+    }
+    h2{
+        margin: 0;
+        color: white;
+        padding-top: 10px;
+        font-size: 20px;
+        font-family: "trebuchet ms", sans-serif;
+    }
+    .item{
+        background: black;
+        text-align: center;
+        height: 100px !important;
+    }
+    .carousel{
+        margin-top: 10px;
+    }
+    .bs-example{
+        width: 48%;
+    }
+    .bs-left {
+        float: left;
+    }
+    .bs-right {
+        float: right;
+    }
+    .item2{
+        background: black;
+        text-align: center;
+        height: 100px !important;
+    }
+    .carousel2{
+        margin-top: 10px;
+    }
+    .bs-example2{
+	    margin: 20px;
+        width: 40%;
+        float: right;
+    }
+    #blok {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 80%;
+    }
+   .nr-strony{
+        padding-top: 0px;
+    }
+    .stopka{
+        margin: 20px;
+    }
+    .button{
+        display: block;
+        background-color: black;
+        color: white;
+        border-radius: 5px;
+        border: none;
+        padding: 5px 15px;
+    }
+    #main{
+        width: 100%;
+        min-height: 400px;
+    }
+    #main:after{
+        content: "";
+		height: 0px;
+		display: block;
+	}
+    .searchbox{
+        width: 400px;
+        height: 30px;
+    }
+    .row{
+        display: block;
+        margin: 0 auto;
+    }
+    .pole{
+        padding: 30px 0;
+        text-align: center;
+    }
+    .center {
+        float: none;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .wyniki{
+        border-radius: 5px;
+        background-color: white;
+        margin-top: 30px;
+        margin-left: 135px;
+        margin-right: 135px;
+        margin-bottom: 10px;
+    }
+    .tytul{
+        margin-left: 5px;
+    }
+    .obrazek{
+        float: left;
+    }
+    .opis{
+        margin-left: 100px;
+        margin-right: 500px;
+    }
+    .ipla{
+        float: right;
+        margin: auto;
+        margin-top: -15px;
+        margin-right: 50px;
+    }
+    .iplex{
+        float: right;
+        margin: auto;
+        margin-top: -5px;
+        margin-right: 50px;
+    }
+    .tvp{
+        float: right;
+        margin: auto;
+        margin-top: -20px;
+        margin-right: 0px;
+    }
+    .polecane1{
+
+    }
+    .ikonki{
+        -moz-transform:scale(0.5);
+        -webkit-transform:scale(0.5);
+        transform:scale(0.5);
+    }
+</style>
+
+
+
+
+
+<body ng-app="nalegaluApp" ng-controller="searchController" >
+
+    <div id="container">
+
+    <header>
+
+    <div id="logo">
+        <center><img src="logo2.png" alt="Tu podaj tekst alternatywny" /></center>
+    </div>
+    <div id="film">
+
+    </div>
+
+   </header>
+
+    <div id="main">
+      <div class="center"  id="search">
+           <form class="pole" role="search" ng-submit="clickEventFunction()">
+
+                <input type="text" class="searchbox" placeholder=" Wpisz tytuł filmu..." ng-model="query">
+
+               <br></br>
+
+               <center><button type="submit" class="button">Szukaj</button></center>
+           </form>
+      </div>
+
+{%verbatim%}
+<div class="wyniki">
+<table class="table">
+        <thead>
+          <tr>
+            <div class="tytul">
+                <b><font size="4">{{result.full_title}}</font></b>
+            </div>
+          </tr>
+        </thead>
+
+            <td ng-repeat="result in searchList">
+                <div class="obrazek">
+                    <a href="BW.png" target="_blank"><img src="BWm.png" border="0"></a>
+                </div>
+                <div class="opis">
+                    W okupowanej przez nazistów Francji oddział złożony z Amerykanów żydowskiego pochodzenia planuje zamach na Hitlera.
+                </div>
+
+                <div class="tvp">
+                    <a href="www.tvp.pl"><img class="ikonki" src="tvplogo.png"></a>
+                </div>
+                <div class="iplex">
+                    <a href="www.iplex.pl"><img class="ikonki" src="iplexlogo.png"></a>
+                </div>
+                <div class="ipla">
+                    <a href="www.ipla.pl"><img class="ikonki" src="iplalogo.png"></a>
+                </div>
+
+            </td>
+</table>
+
+</div>
+
+{%endverbatim%}
+
+
+
+
+      <div id="blok">
+
+    <div class="bs-example bs-left">
+    <div id="myCarousel" class="carousel slide" data-interval="3000" data-ride="carousel">
+          <ol class="carousel-indicators">
+        </ol>
+           <div class="carousel-inner">
+            <div class="active item">
+                <h2>
+                    <div class="polecane1">
+                        <a href="www.ipla.pl"><img class="ikonki" src="BWm.png"></a>
+                    </div>
+                </h2>
+                    <div class="carousel-caption">
+
+
+
+                </div>
+            </div>
+            <div class="item">
+                <h2>Polecane</h2>
+                <div class="carousel-caption">
+
+                </div>
+            </div>
+            <div class="item">
+                <h2>Polecane</h2>
+                <div class="carousel-caption">
+
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="carousel-control right" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+        <div class="bs-example bs-right">
+    <div id="myCarousel1" class="carousel slide" data-interval="3000" data-ride="carousel">
+          <ol class="carousel-indicators">
+        </ol>
+           <div class="carousel-inner">
+            <div class="active item">
+                <h2>Najczęściej oglądane</h2>
+                <div class="carousel-caption">
+
+                </div>
+            </div>
+            <div class="item">
+                <h2>Najczęściej oglądane</h2>
+                <div class="carousel-caption">
+
+                </div>
+            </div>
+            <div class="item">
+                <h2>Najczęściej oglądane</h2>
+                <div class="carousel-caption">
+
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control left" href="#myCarousel1" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="carousel-control right" href="#myCarousel1" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    </div>
+</div>
+
+
+        </div>
+
+
+
+
+
+
+    </div>
+    </div>
+<footer>
+<div id="film">
+
+    </div>
+    <div id="footercontent">
+        &copy; Copyright 2014. naLegalu.org
+    </div>
+</footer>
+
+
+</div>
+
+
+
+<script src="{% static "script.js" %}" ></script>
+
+
+</body>
+</html>
