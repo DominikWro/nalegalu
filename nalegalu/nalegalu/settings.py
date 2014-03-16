@@ -24,6 +24,8 @@ STATICFILES_DIRS = (
     '/var/www/static/',
 )
 
+# STATIC_ROOT = 'staticfiles'
+
 STATIC_URL = '/static/'
 
 # Quick-start development settings - unsuitable for production
@@ -37,7 +39,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
 
 
 
