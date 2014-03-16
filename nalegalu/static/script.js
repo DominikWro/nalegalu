@@ -3,12 +3,12 @@
 angular.module('nalegaluApp.controllers', []).
 controller('searchController', function($scope, $http) {
     $scope.searchList = [
-      {
-            "full_title": "Cztery noce z Anną",
-            "iplex": "",
-            "ipla": "",
-            "tvp": "http://vod.tvp.pl//filmy-fabularne/dramat/cztery-noce-z-anna"
-        }
+      // {
+      //       "full_title": "Cztery noce z Anną",
+      //       "iplex": "",
+      //       "ipla": "",
+      //       "tvp": "http://vod.tvp.pl//filmy-fabularne/dramat/cztery-noce-z-anna"
+      //   }
 
     ];
 
